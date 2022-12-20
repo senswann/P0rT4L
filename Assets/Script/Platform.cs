@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Move>().verticalMove = 0f;
+            collision.gameObject.GetComponent<Move>().vecMove.z = 0f;
             collision.gameObject.GetComponent<Move>().vecMove = Vector3.zero;
         }
     }

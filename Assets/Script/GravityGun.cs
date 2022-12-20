@@ -35,8 +35,9 @@ public class GravityGun : MonoBehaviour
             RaycastHit hit;
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
             if(Physics.Raycast(ray, out hit, maxGrabDistance))
-            {          
-                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+            {
+                if(hit.collider.gameObject.tag == "Companion")
+                    grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
                 if (grabbedRB)
                 {
                     grabbedRB.useGravity = false;
