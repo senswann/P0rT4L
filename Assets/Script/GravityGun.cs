@@ -1,0 +1,50 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class GravityGun : MonoBehaviour
+{
+    public Camera cam;
+    public float maxGrabDistance = 10f, throwForce = 1f, lerpSpeed = 5f;
+    [SerializeField] float dist = 1;
+    public Transform objectHolder;
+
+    Rigidbody grabbedRB;
+    private void FixedUpdate()
+    {
+        if (grabbedRB && objectHolder)
+        {
+            grabbedRB.MovePosition(Vector3.Lerp(grabbedRB.position, objectHolder.transform.position + cam.transform.forward*dist, Time.fixedDeltaTime * lerpSpeed));
+        }
+    }
+    public void OnGravityGun(InputAction.CallbackContext context)
+    {
+        if (!context.performed && context.canceled)
+        {
+            if (grabbedRB)
+            {
+                grabbedRB.isKinematic = false;
+                grabbedRB.useGravity = true;
+                grabbedRB.freezeRotation = false;
+                grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+                grabbedRB = null;
+            }
+            return;
+        }
+        if (context.performed)
+        {
+            RaycastHit hit;
+            Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+            if(Physics.Raycast(ray, out hit, maxGrabDistance))
+            {          
+                grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                if (grabbedRB)
+                {
+                    grabbedRB.useGravity = false;
+                    grabbedRB.isKinematic = true;
+                    grabbedRB.freezeRotation = true;
+                }
+            }
+
+        }
+    }
+}
