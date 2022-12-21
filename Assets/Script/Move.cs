@@ -6,6 +6,7 @@ public class Move : MonoBehaviour
     public Vector3 vecMove = Vector3.zero;
     [SerializeField] Vector3 moveDir = Vector3.zero;
     [SerializeField] float moveSpeed = 7f;
+    [SerializeField] float launchForce = 3000f;
 
     [SerializeField] float groundDrag;
     [SerializeField] float playerHeigth;
@@ -79,24 +80,24 @@ public class Move : MonoBehaviour
         moveDir = new Vector3(camPlayer.transform.forward.x,0f, camPlayer.transform.forward.z) * vecMove.y + new Vector3(camPlayer.transform.right.x, 0f, camPlayer.transform.right.z) * vecMove.x;
         
         if(grounded)
-            rb.AddForce(moveDir.normalized*moveSpeed*10f, ForceMode.Force);
+            rb.velocity = moveDir.normalized * moveSpeed * 10f;
         else if(!grounded)
             rb.AddForce(moveDir.normalized * moveSpeed * 10f * airMulti, ForceMode.Force);
     }
 
     void Launch()
     {
-        GameObject projectileObject = Instantiate(projectileInstance, rb.position + Vector3.one, Quaternion.identity);
+        GameObject projectileObject = Instantiate(projectileInstance, rb.position + camPlayer.transform.forward, Quaternion.identity);
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.Launch(Vector3.zero, 300);
+        projectile.Launch(camPlayer.transform.forward, launchForce);
     }
 
     private void LimitSpeed()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if(flatVel.magnitude > moveSpeed)
+        if(flatVel.magnitude >= moveSpeed)
         {
             Vector3 limiteVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limiteVel.x, rb.velocity.y, limiteVel.z);
