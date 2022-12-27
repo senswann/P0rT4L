@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.magnitude > 3000.0f)
+        if (transform.position.magnitude > 6000.0f)
         {
             Erase();
         }
@@ -50,7 +50,6 @@ public class Projectile : MonoBehaviour
                 collision.gameObject.GetComponent<Move>().Death();
                 Debug.Log("Touch");
             }
-           Destroy(gameObject);
         }
     }
 }

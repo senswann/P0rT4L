@@ -86,7 +86,7 @@ public class Move : MonoBehaviour
 
     void Launch()
     {
-        GameObject projectileObject = Instantiate(projectileInstance, rb.position + camPlayer.transform.forward, Quaternion.identity);
+        GameObject projectileObject = Instantiate(projectileInstance, camPlayer.transform.position + camPlayer.transform.forward, Quaternion.identity);
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(camPlayer.transform.forward, launchForce);
