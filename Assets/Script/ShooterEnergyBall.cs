@@ -19,7 +19,7 @@ public class ShooterEnergyBall : MonoBehaviour
     {
         isLaunch = true;
         GameObject projectileObject = Instantiate(energyBallInstance, transform.position + gameObject.transform.forward, Quaternion.identity);
-
+        projectileObject.GetComponent<Projectile>().isParent = false;
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(gameObject.transform.forward*2f, launchForce);
     }

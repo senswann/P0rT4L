@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour
     Rigidbody rb;
     [SerializeField] Transform portal;
     [SerializeField] float moveSpeed = 10f;
+    public bool isParent = false;
     [SerializeField] bool isPortal = false;
 
     void Awake()
@@ -19,15 +20,20 @@ public class Projectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.magnitude > 1000.0f)
+        if (transform.position.magnitude > 3000.0f)
         {
-            Destroy(gameObject);
+            Erase();
         }
+
+        if(!isParent)
+            Invoke(nameof(Erase), 15f);
 
         if (rb.velocity.magnitude != moveSpeed){
             rb.velocity = rb.velocity.normalized * moveSpeed;
         }
     }
+
+    private void Erase() { Destroy(gameObject); }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -39,7 +45,12 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-
+            if (collision.gameObject.tag == "Player")
+            {
+                collision.gameObject.GetComponent<Move>().Death();
+                Debug.Log("Touch");
+            }
+           Destroy(gameObject);
         }
     }
 }

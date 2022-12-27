@@ -117,7 +117,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &805112261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,9 +131,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vecMove: {x: 0, y: 0, z: 0}
-  verticalMove: 0
+  moveDir: {x: 0, y: 0, z: 0}
+  moveSpeed: 10
+  launchForce: 3000
+  groundDrag: 5
+  playerHeigth: 2
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  jumpForce: 10
+  jumpCooldown: 0.25
+  airMulti: 1
   rb: {fileID: 805112259}
+  camPlayer: {fileID: 936155163311361586}
   projectileInstance: {fileID: 0}
+  waypoint: {fileID: 0}
 --- !u!114 &805112260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 936155163311361586}
   maxGrabDistance: 10
-  throwForce: 200
-  lerpSpeed: 100
+  throwForce: 5
+  lerpSpeed: 10
+  dist: 1.5
   objectHolder: {fileID: 936155163362555662}
 --- !u!114 &805112262
 MonoBehaviour:
@@ -305,7 +318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936155163311361584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8215167, y: -2.066157, z: -8.278124}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -391,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensibility: 2
-  yRotationLimit: 90
+  yRotationLimit: 880
 --- !u!1 &936155163362555663
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936155163362555663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

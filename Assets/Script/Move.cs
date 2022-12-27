@@ -22,6 +22,8 @@ public class Move : MonoBehaviour
     [SerializeField] Camera camPlayer;
     [SerializeField] GameObject projectileInstance;
 
+    [SerializeField] Transform waypoint;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -66,23 +68,20 @@ public class Move : MonoBehaviour
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeigth * 0.5f + 0.2f, WhatIsGround);
 
-        if (grounded)
-        {
+        if (grounded&!isJump)
             rb.drag = groundDrag;
-        }
         else
             rb.drag = 0f;
         LimitSpeed();
     }
     private void FixedUpdate()
     {
-        //rb.position = new Vector3(rb.position.x+vecMove.y*0.1f, rb.position.y + vecMove.z, rb.position.z - vecMove.x * 0.1f);
         moveDir = new Vector3(camPlayer.transform.forward.x,0f, camPlayer.transform.forward.z) * vecMove.y + new Vector3(camPlayer.transform.right.x, 0f, camPlayer.transform.right.z) * vecMove.x;
-        
-        if(grounded)
-            rb.velocity = moveDir.normalized * moveSpeed * 10f;
-        else if(!grounded)
-            rb.AddForce(moveDir.normalized * moveSpeed * 10f * airMulti, ForceMode.Force);
+
+        if (grounded)
+            rb.velocity = moveSpeed*moveDir.normalized;
+        else if (!grounded)
+            rb.AddForce(moveSpeed*airMulti*moveDir.normalized , ForceMode.Force);
     }
 
     void Launch()
@@ -106,9 +105,14 @@ public class Move : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("Jump");
+        rb.drag = 0f;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    public void Death()
+    {
+        transform.position = waypoint.position;
     }
     private void ResetJump() { isJump = false; }
 }
