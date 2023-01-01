@@ -7,6 +7,7 @@ public class GravityGun : MonoBehaviour
     public float maxGrabDistance = 10f, throwForce = 1f, lerpSpeed = 5f;
     [SerializeField] float dist = 1;
     public Transform objectHolder;
+    private bool isGrabbed=false;
 
     Rigidbody grabbedRB;
     private void FixedUpdate()
@@ -19,29 +20,34 @@ public class GravityGun : MonoBehaviour
     public void OnGravityGun(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
-        {
-            if (grabbedRB)
-            {
-                grabbedRB.isKinematic = false;
-                grabbedRB.velocity = -objectHolder.transform.up;
-                grabbedRB = null;
-            }
+        {   
             return;
         }
         if (context.performed)
         {
-            RaycastHit hit;
-            Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-            if(Physics.Raycast(ray, out hit, maxGrabDistance))
+            Debug.Log(grabbedRB + " " + isGrabbed);
+            if (grabbedRB && isGrabbed)
             {
-                if(hit.collider.gameObject.tag == "Companion")
-                    grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
-                if (grabbedRB)
+                isGrabbed = false;
+                grabbedRB.isKinematic = false;
+                grabbedRB.velocity = -objectHolder.transform.up;
+                grabbedRB = null;
+            }
+            else
+            {
+                RaycastHit hit;
+                Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+                if(Physics.Raycast(ray, out hit, maxGrabDistance))
                 {
-                    grabbedRB.isKinematic = true;
+                    if(hit.collider.gameObject.tag == "Companion")
+                        grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                    if (grabbedRB)
+                    {
+                        isGrabbed = true;
+                        grabbedRB.isKinematic = true;
+                    }
                 }
             }
-
         }
     }
 }

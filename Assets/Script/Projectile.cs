@@ -1,12 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] Transform portal;
+    [SerializeField] Transform portalOrange;
+    [SerializeField] Transform portalBlue;
     [SerializeField] float moveSpeed = 10f;
     public bool isParent = false;
+    public bool isOrangeSide = false;
     [SerializeField] bool isPortal = false;
+
+    [SerializeField] Slider orangeSlider;
+    [SerializeField] Slider blueSlider;
 
     void Awake()
     {
@@ -40,8 +46,24 @@ public class Projectile : MonoBehaviour
         if (isPortal)
         {
             if(collision.gameObject.tag == "TpWall")
-                portal.position = rb.position;
-            Destroy(gameObject);
+            {
+                Debug.Log("wall");
+                Debug.Log(transform.forward);
+                if (isOrangeSide)
+                {
+                    portalOrange.position = rb.position-(transform.forward*0.025f);
+                    orangeSlider.value = 0f;
+                }
+                else
+                {
+                    portalBlue.position = rb.position - (transform.forward * 0.025f);
+                    blueSlider.value = 0f;
+                }
+
+                Destroy(gameObject);
+            }
+            else
+                Destroy(gameObject);
         }
         else
         {

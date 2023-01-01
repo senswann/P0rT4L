@@ -15,7 +15,6 @@ public class Cam : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezePosition;
         if(collision.gameObject.tag == "Projectile")
         {
-            Debug.Log("cam");
             rb.isKinematic = false;
             rb.useGravity = true;
         }

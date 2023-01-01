@@ -52,7 +52,7 @@ public class Move : MonoBehaviour
             }
         }
     }
-    public void OnShoot(InputAction.CallbackContext context)
+    public void OnShootOrange(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
         {
@@ -60,7 +60,19 @@ public class Move : MonoBehaviour
         }
         if (context.performed)
         {
-            Launch();
+            Launch(true);
+        }
+    }
+
+    public void OnShootBlue(InputAction.CallbackContext context)
+    {
+        if (!context.performed && context.canceled)
+        {
+            return;
+        }
+        if (context.performed)
+        {
+            Launch(false);
         }
     }
     private void Update()
@@ -84,11 +96,12 @@ public class Move : MonoBehaviour
             rb.AddForce(moveSpeed*airMulti*moveDir.normalized , ForceMode.Force);
     }
 
-    void Launch()
+    void Launch(bool isOrangeSide)
     {
         GameObject projectileObject = Instantiate(projectileInstance, camPlayer.transform.position + camPlayer.transform.forward, Quaternion.identity);
-
         Projectile projectile = projectileObject.GetComponent<Projectile>();
+        if (isOrangeSide)
+            projectile.isOrangeSide = true;
         projectile.Launch(camPlayer.transform.forward, launchForce);
     }
 

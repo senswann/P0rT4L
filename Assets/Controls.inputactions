@@ -15,7 +15,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shoot",
+                    "name": "ShootBlue",
+                    "type": "Button",
+                    "id": "c47d7228-a9a7-482d-a60a-cb948dc2d7ad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShootOrange",
                     "type": "Button",
                     "id": "f508ad31-b7a7-4797-8f07-f3abd4503378",
                     "expectedControlType": "Button",
@@ -123,7 +132,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "ShootOrange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -141,7 +150,7 @@
                 {
                     "name": "",
                     "id": "2e82d9ac-0c90-49bb-92ad-716555538c59",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbb5fbe5-776b-4af8-9a73-90030f46ddc9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootBlue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
