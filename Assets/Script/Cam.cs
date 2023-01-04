@@ -13,7 +13,7 @@ public class Cam : MonoBehaviour
     {
         if (collision.gameObject.tag == "ground")
             rb.constraints = RigidbodyConstraints.FreezePosition;
-        if(collision.gameObject.tag == "Projectile")
+        if(collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "Energy")
         {
             rb.isKinematic = false;
             rb.useGravity = true;

@@ -25,7 +25,6 @@ public class GravityGun : MonoBehaviour
         }
         if (context.performed)
         {
-            Debug.Log(grabbedRB + " " + isGrabbed);
             if (grabbedRB && isGrabbed)
             {
                 isGrabbed = false;
@@ -39,8 +38,11 @@ public class GravityGun : MonoBehaviour
                 Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
                 if(Physics.Raycast(ray, out hit, maxGrabDistance))
                 {
+
                     if(hit.collider.gameObject.tag == "Companion")
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                    else if (hit.collider.gameObject.tag == "Button")
+                        hit.collider.gameObject.GetComponent<ButtonAction>().Action();
                     if (grabbedRB)
                     {
                         isGrabbed = true;

@@ -47,8 +47,6 @@ public class Projectile : MonoBehaviour
         {
             if(collision.gameObject.tag == "TpWall")
             {
-                Debug.Log("wall");
-                Debug.Log(transform.forward);
                 if (isOrangeSide)
                 {
                     portalOrange.position = rb.position-(transform.forward*0.025f);

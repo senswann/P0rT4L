@@ -8,6 +8,8 @@ TagManager:
   - TpWall
   - ground
   - Projectile
+  - Energy
+  - Button
   layers:
   - Default
   - TransparentFX

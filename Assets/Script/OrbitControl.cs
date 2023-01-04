@@ -5,6 +5,7 @@ public class OrbitControl : MonoBehaviour
 {
     [Range(0.1f, 9f)] [SerializeField] float mouseSensibility = 2f;
     [Range(0f, 900f)] [SerializeField] float yRotationLimit = 880f;
+    [SerializeField] private GameObject player;
     Vector2 rotation = Vector2.zero;
 
     private void Start()
@@ -19,6 +20,7 @@ public class OrbitControl : MonoBehaviour
         var yQuat = Quaternion.AngleAxis(rotation.y * Time.fixedDeltaTime, Vector3.left);
 
         transform.localRotation = xQuat * yQuat;
+        player.transform.localRotation = xQuat;
     }
     public void OnMouseY(InputAction.CallbackContext context)
     {
