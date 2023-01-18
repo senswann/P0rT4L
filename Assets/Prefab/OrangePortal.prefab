@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 2344110289978621621}
   - component: {fileID: 2344110289978621618}
   - component: {fileID: 2344110289978621619}
-  - component: {fileID: 2344110291372942547}
+  - component: {fileID: 2344110291372942552}
+  - component: {fileID: 2344110291372942558}
   m_Layer: 0
   m_Name: OrangePortal
   m_TagString: Untagged
@@ -5128,7 +5129,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 947
+  m_VersionIndex: 953
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5214,7 +5215,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2344110289978621617}
   m_Mesh: {fileID: 0}
---- !u!65 &2344110291372942547
+--- !u!114 &2344110291372942552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2344110289978621617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9f9fc75d8144345995a8871259d68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portal: {fileID: 0}
+  portalCollider: {fileID: 0}
+--- !u!65 &2344110291372942558
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5222,7 +5237,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2344110289978621617}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5210878, y: 2.6822464e-14, z: 1.8874636}

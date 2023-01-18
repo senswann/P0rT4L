@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 3936213106962327511}
   - component: {fileID: 3936213106962327504}
   - component: {fileID: 3936213106962327505}
-  - component: {fileID: 3936213107767999157}
   m_Layer: 0
   m_Name: BluePortal
   m_TagString: Untagged
@@ -5289,16 +5288,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3936213106962327507}
   m_Mesh: {fileID: 0}
---- !u!65 &3936213107767999157
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3936213106962327507}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5210878, y: 2.6822464e-14, z: 1.8874636}
-  m_Center: {x: 0.000000059604645, y: -0.00000011250165, z: 0.00000035762795}

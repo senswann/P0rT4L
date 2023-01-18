@@ -4,7 +4,7 @@ using TMPro;
 public class FPSCount : MonoBehaviour
 {
     //UI du compteur d'FPS
-    public TextMeshProUGUI count;
+    public TextMeshProUGUI counts;
 
     //variable permettant le calcul des fps
     private int frameRateIndex;
@@ -23,7 +23,7 @@ public class FPSCount : MonoBehaviour
         frameRateIndex = (frameRateIndex + 1) % frameDeltaTimeArray.Length;
 
         //on écrit les FPS a l'écran
-        count.text = "FPS : " + Mathf.RoundToInt(CalculateFPS()).ToString();
+        counts.text = "FPS : " + Mathf.RoundToInt(CalculateFPS()).ToString();
     }
 
     //on effectue le calcul de FPS
