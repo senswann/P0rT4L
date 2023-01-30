@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] Transform portalOrange;
     [SerializeField] Transform portalBlue;
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float liveTime = 6f;
     public bool isParent = false;
     public bool isOrangeSide = false;
     [SerializeField] bool isPortal = false;
@@ -32,7 +33,7 @@ public class Projectile : MonoBehaviour
         }
 
         if(!isParent)
-            Invoke(nameof(Erase), 15f);
+            Invoke(nameof(Erase), liveTime);
 
         if (rb.velocity.magnitude != moveSpeed){
             rb.velocity = rb.velocity.normalized * moveSpeed;

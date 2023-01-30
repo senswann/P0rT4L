@@ -78,7 +78,7 @@ public class Move : MonoBehaviour
     private void Update()
     {
         //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeigth * 0.5f + 0.2f, WhatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeigth * 0.4f + 0.2f, WhatIsGround);
 
         if (grounded&!isJump)
             rb.drag = groundDrag;
@@ -91,7 +91,10 @@ public class Move : MonoBehaviour
         moveDir = new Vector3(camPlayer.transform.forward.x,0f, camPlayer.transform.forward.z) * vecMove.y + new Vector3(camPlayer.transform.right.x, 0f, camPlayer.transform.right.z) * vecMove.x;
 
         if (grounded)
+        {
+            Debug.Log("is Grounded");
             rb.velocity = moveSpeed*moveDir.normalized;
+        }
         else if (!grounded)
             rb.AddForce(moveSpeed*airMulti*moveDir.normalized , ForceMode.Force);
     }
