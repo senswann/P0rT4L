@@ -8,7 +8,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" || other.tag == "Energy")
         {
             other.transform.position = portal.position + portal.up;
         }
