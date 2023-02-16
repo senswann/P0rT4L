@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyBallInstance: {fileID: 0}
   launchForce: 30
-  launchCooldown: 3
+  launchCooldown: 5
   lightObj: {fileID: 679408348}
 --- !u!1 &679408346
 GameObject:
@@ -8301,7 +8301,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2203
+  m_VersionIndex: 2209
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -17381,7 +17381,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2200
+  m_VersionIndex: 2209
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ButtonAction : MonoBehaviour
 {
     [SerializeField] float cooldown = 3f;
-    [SerializeField] Acsensor objAction;
+    [SerializeField] ObjectAction objAction;
     bool IsStart = false;
     
     public void Action()
@@ -12,7 +12,8 @@ public class ButtonAction : MonoBehaviour
         {
             IsStart = true;
             objAction.Action();
-            Invoke(nameof(Reset), cooldown);
+            if(cooldown>0f)
+                Invoke(nameof(Reset), cooldown);
         }
     }
 

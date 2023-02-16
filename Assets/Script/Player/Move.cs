@@ -24,6 +24,8 @@ public class Move : MonoBehaviour
 
     [SerializeField] Transform waypoint;
 
+    public bool disableGravityGun = false;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -77,14 +79,22 @@ public class Move : MonoBehaviour
     }
     private void Update()
     {
-        //ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeigth * 0.4f + 0.2f, WhatIsGround);
-
         if (grounded&!isJump)
             rb.drag = groundDrag;
         else
             rb.drag = 0f;
         LimitSpeed();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "ground" || collision.transform.tag == "Companion")
+            grounded = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "ground" || collision.transform.tag == "Companion")
+            grounded = false;
     }
     private void FixedUpdate()
     {
@@ -92,7 +102,6 @@ public class Move : MonoBehaviour
 
         if (grounded)
         {
-            Debug.Log("is Grounded");
             rb.velocity = moveSpeed*moveDir.normalized;
         }
         else if (!grounded)
@@ -101,11 +110,14 @@ public class Move : MonoBehaviour
 
     void Launch(bool isOrangeSide)
     {
-        GameObject projectileObject = Instantiate(projectileInstance, camPlayer.transform.position + camPlayer.transform.forward, Quaternion.identity);
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
-        if (isOrangeSide)
-            projectile.isOrangeSide = true;
-        projectile.Launch(camPlayer.transform.forward, launchForce);
+        if (!disableGravityGun)
+        {
+            GameObject projectileObject = Instantiate(projectileInstance, camPlayer.transform.position + camPlayer.transform.forward, Quaternion.identity);
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            if (isOrangeSide)
+                projectile.isOrangeSide = true;
+            projectile.Launch(camPlayer.transform.forward, launchForce);
+        }
     }
 
     private void LimitSpeed()

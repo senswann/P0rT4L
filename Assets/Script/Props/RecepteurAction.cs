@@ -3,6 +3,7 @@ using UnityEngine;
 public class RecepteurAction : MonoBehaviour
 {
     [SerializeField] GameObject lightObj;
+    [SerializeField] ObjectAction objAction;
 
     private void Start()
     {
@@ -14,6 +15,7 @@ public class RecepteurAction : MonoBehaviour
         if(collision.gameObject.tag == "Energy")
         {
             lightObj.SetActive(true);
+            objAction.Action();
             Destroy(collision.gameObject);
         }
     }

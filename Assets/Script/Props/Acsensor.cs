@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Acsensor : MonoBehaviour
+public class Acsensor : ObjectAction
 {
     [SerializeField] Animator anim;
-    public void Action()
+    public override void Action()
     {
         anim.SetTrigger("Up");
     }
-    public void ActionStop()
+    public override void ActionStop()
     {
         anim.SetTrigger("Down");
     }

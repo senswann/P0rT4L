@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : ObjectAction
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Animator anim;
+    public override void Action()
     {
-        
+        anim.SetTrigger("Down");
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void ActionStop()
     {
-        
+        anim.SetTrigger("Up");
     }
 }

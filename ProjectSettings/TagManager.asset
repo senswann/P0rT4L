@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Energy
   - Button
+  - End
   layers:
   - Default
   - TransparentFX

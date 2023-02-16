@@ -4,7 +4,7 @@ public class Button : MonoBehaviour
 {
     [SerializeField] Animator anim;
     [SerializeField] float cooldown = 3f;
-    [SerializeField] Acsensor objAction;
+    [SerializeField] ObjectAction objAction;
     bool isTrigger = false;
 
     private void OnTriggerEnter(Collider other)
