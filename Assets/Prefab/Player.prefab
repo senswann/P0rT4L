@@ -38884,6 +38884,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087072202}
   m_Mesh: {fileID: 0}
+--- !u!1 &794260669173449437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8940080363564237224}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8940080363564237224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794260669173449437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 936155163067312894}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936155163067312895
 GameObject:
   m_ObjectHideFlags: 0
@@ -38918,7 +38949,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.365, z: -0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8940080363564237224}
   m_Father: {fileID: 936155163615137035}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39018,17 +39050,15 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0, z: 0}
   moveSpeed: 10
   launchForce: 300
+  projectileInstance: {fileID: 0}
+  disableGravityGun: 0
   groundDrag: 0
-  playerHeigth: 2
-  WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
+  groundCheck: {fileID: 8940080363564237224}
   jumpForce: 10
   jumpCooldown: 0.25
   airMulti: 1
   rb: {fileID: 805112259}
   camPlayer: {fileID: 936155163311361586}
-  projectileInstance: {fileID: 0}
   waypoint: {fileID: 0}
 --- !u!114 &805112260
 MonoBehaviour:
@@ -39185,6 +39215,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c47d7228-a9a7-482d-a60a-cb948dc2d7ad
     m_ActionName: Player/ShootBlue[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c23971f-04aa-4214-af38-cc202ae01e89
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

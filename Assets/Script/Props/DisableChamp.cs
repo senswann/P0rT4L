@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public class DisableChamp : MonoBehaviour
+{
+    //animation de la porte de fin
+    [SerializeField] Animator doorAnimation;
+
+    //variable stockant les portails
+    [SerializeField] GameObject orangePortal;
+    [SerializeField] GameObject bluePortal;
+    Vector3 startPositionOrange;
+    Vector3 startPositionBlue;
+
+    //on stock les positions de départ des portails
+    private void Start()
+    {
+        startPositionBlue= bluePortal.transform.position;
+        startPositionOrange= orangePortal.transform.position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //quand le joueur rentre dans le champ on start l'animation de la porte et l'on replace les portail a leur position initial
+        if (other.tag == "Player")
+        {
+            doorAnimation.SetTrigger("Open");
+            other.GetComponent<Move>().disableGravityGun = false;
+            bluePortal.transform.position = startPositionBlue;
+            orangePortal.transform.position = startPositionOrange;
+        }
+    }
+}

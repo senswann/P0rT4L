@@ -3,29 +3,44 @@ using UnityEngine.InputSystem;
 
 public class Move : MonoBehaviour
 {
+    //variable lie au mouvement du joueur
     public Vector3 vecMove = Vector3.zero;
     [SerializeField] Vector3 moveDir = Vector3.zero;
     [SerializeField] float moveSpeed = 7f;
+
+    //variable lie au gravity gun
     [SerializeField] float launchForce = 3000f;
+    [SerializeField] GameObject projectileInstance;
+    public bool disableGravityGun = false;
 
+    //variable lie a la detection du ground
     [SerializeField] float groundDrag;
-    [SerializeField] float playerHeigth;
-    [SerializeField] LayerMask WhatIsGround;
-    bool grounded = false;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask groundLayer;
 
+    //variable lie au jump du joueur
     [SerializeField] float jumpForce = 12f;
     [SerializeField] float jumpCooldown = 0.25f;
     [SerializeField] float airMulti = 0.4f;
     bool isJump = false;
 
+    //rigid body du joueur
     [SerializeField] Rigidbody rb;
-    [SerializeField] Camera camPlayer;
-    [SerializeField] GameObject projectileInstance;
 
+    //camera du joueur
+    [SerializeField] Camera camPlayer;
+
+    //point de respawn du joueur
     [SerializeField] Transform waypoint;
 
-    public bool disableGravityGun = false;
+    
+    //setter du waypoint du joueur
+    public void SetWaypoint(Transform _waypoint)
+    {
+        waypoint = _waypoint;
+    }
 
+    //action appeler quand le joueur veux bouger
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -38,6 +53,7 @@ public class Move : MonoBehaviour
         }
     }
 
+    //action appeler quand le joueur veux jump
     public void OnJump(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -46,7 +62,8 @@ public class Move : MonoBehaviour
         }
         if (context.performed)
         {
-            if (grounded && !isJump)
+            // on peux jump seulement si l on est pas entrain de jump et si l on touche le sol
+            if (isGrounded() && !isJump)
             {
                 isJump = true;
                 Jump();
@@ -54,6 +71,8 @@ public class Move : MonoBehaviour
             }
         }
     }
+
+    //action appeler quand le joueur veux lancer le portail orange
     public void OnShootOrange(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -66,6 +85,7 @@ public class Move : MonoBehaviour
         }
     }
 
+    //action appeler quand le joueur veux lancer le portail bleu
     public void OnShootBlue(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -77,37 +97,29 @@ public class Move : MonoBehaviour
             Launch(false);
         }
     }
-    private void Update()
+
+    bool isGrounded()
     {
-        if (grounded&!isJump)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0f;
-        LimitSpeed();
+        return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "ground" || collision.transform.tag == "Companion")
-            grounded = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform.tag == "ground" || collision.transform.tag == "Companion")
-            grounded = false;
-    }
     private void FixedUpdate()
     {
+        //on limite la vitesse du joueur
+        LimitSpeed();
+        //mouvement du joueur
         moveDir = new Vector3(camPlayer.transform.forward.x,0f, camPlayer.transform.forward.z) * vecMove.y + new Vector3(camPlayer.transform.right.x, 0f, camPlayer.transform.right.z) * vecMove.x;
 
-        if (grounded)
+        //gestion du deplacement du joueur selon si il est en l air ou non
+        if (isGrounded())
         {
             rb.velocity = moveSpeed*moveDir.normalized;
         }
-        else if (!grounded)
+        else
             rb.AddForce(moveSpeed*airMulti*moveDir.normalized , ForceMode.Force);
     }
 
+    //fonction lancant les projectile servant a créer les portails
     void Launch(bool isOrangeSide)
     {
         if (!disableGravityGun)
@@ -120,6 +132,7 @@ public class Move : MonoBehaviour
         }
     }
 
+    //fonction permettant la limitation de la vitesse du joueur
     private void LimitSpeed()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -131,6 +144,7 @@ public class Move : MonoBehaviour
         }
     }
 
+    //fonction appeler pour faire jump le joueur
     private void Jump()
     {
         rb.drag = 0f;
@@ -138,9 +152,13 @@ public class Move : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
+    //reset du jump
+    private void ResetJump() { isJump = false; }
+
+    //fonction permettant le respawn du joueur a sa mort
     public void Death()
     {
         transform.position = waypoint.position;
     }
-    private void ResetJump() { isJump = false; }
+    
 }
