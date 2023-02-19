@@ -31,6 +31,12 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    //fonction permettant le reset du lancer
+    public void ResetLaunch()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
     //fonction permettant le lancer du projectile
     public void Launch(Vector3 direction, float force)
     {
@@ -67,13 +73,17 @@ public class Projectile : MonoBehaviour
                 //si le projectile est un portail et qu il correspond au portail orange alors on fait apparaitre le portail bleu
                 if (isOrangeSide)
                 {
-                    portalOrange.position = rb.position-(transform.forward*0.025f);
+                    portalOrange.position = rb.position;
+                    portalOrange.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
+                    portalOrange.position += portalOrange.transform.forward * 0.25f;
                     orangeSlider.value = 0f;
                 }
                 //sinon si le projectile est un portail et qu il correspond au portail bleu alors on fait apparaitre le portail bleu
                 else
                 {
-                    portalBlue.position = rb.position - (transform.forward * 0.025f);
+                    portalBlue.position = rb.position;
+                    portalBlue.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
+                    portalBlue.position += portalBlue.transform.forward * 0.25f;
                     blueSlider.value = 0f;
                 }
 

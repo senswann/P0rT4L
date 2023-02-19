@@ -9,6 +9,9 @@ public class GravityGun : MonoBehaviour
     // float servant de parametre pour le lancer de projectile
     public float maxGrabDistance = 10f, throwForce = 1f, lerpSpeed = 5f;
 
+    //variable du joueur
+    [SerializeField] Move player;
+
     //distance du grab
     [SerializeField] float dist = 1;
 
@@ -66,6 +69,7 @@ public class GravityGun : MonoBehaviour
                     }
                 }
             }
+            player.disableGravityGun = isGrabbed;
         }
     }
 }

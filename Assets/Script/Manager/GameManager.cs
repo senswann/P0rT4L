@@ -29,8 +29,11 @@ public class GameManager : MonoBehaviour
     //au start on désactive les 2 ui
     private void Start()
     {
-        pauseScreen.SetActive(false);
-        endScreen.SetActive(false);
+        if (pauseScreen != null)
+        {
+            pauseScreen.SetActive(false);
+            endScreen.SetActive(false);
+        }
     }
 
     //si on appuie sur la touche Tab on met en pause le jeu
@@ -73,7 +76,8 @@ public class GameManager : MonoBehaviour
     //fonction permettant de faire la transition entre les scenes.
     public void LoadTheGame(int index)
     {
-        player.disableGravityGun = true;
+        if(player != null)
+            player.disableGravityGun = true;
         SceneManager.LoadScene(index);
         Time.timeScale = 1;
     }
