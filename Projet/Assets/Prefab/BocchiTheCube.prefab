@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5056438321273582080}
   - component: {fileID: 1684453698521777115}
   - component: {fileID: 5093199800961610482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BocchiTheCube
   m_TagString: Companion
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5056438321273582087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8851402, y: 1.9055357, z: -2.3829584}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -34488,19 +34488,11 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3332
+  m_VersionIndex: 4322
   m_IsSelectable: 1
-  m_SelectedFaces: de030000
-  m_SelectedEdges:
-  - a: 4008
-    b: 4009
-  - a: 4010
-    b: 4008
-  - a: 4009
-    b: 4011
-  - a: 4011
-    b: 4010
-  m_SelectedVertices: a80f0000a90f0000aa0f0000ab0f0000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!23 &5056438321273582083
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34559,9 +34551,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5056438321273582087}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
