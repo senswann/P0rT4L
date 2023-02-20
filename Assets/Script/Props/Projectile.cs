@@ -73,17 +73,19 @@ public class Projectile : MonoBehaviour
                 //si le projectile est un portail et qu il correspond au portail orange alors on fait apparaitre le portail bleu
                 if (isOrangeSide)
                 {
-                    portalOrange.position = rb.position;
+                    portalOrange.position = collision.gameObject.GetComponent<TPWall>().GetSpawn().position;
                     portalOrange.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
-                    portalOrange.position += portalOrange.transform.forward * 0.25f;
+                    portalOrange.rotation = portalOrange.rotation ;
+                    portalOrange.position = rb.position+portalOrange.transform.forward * 0.1f;
                     orangeSlider.value = 0f;
                 }
                 //sinon si le projectile est un portail et qu il correspond au portail bleu alors on fait apparaitre le portail bleu
                 else
                 {
-                    portalBlue.position = rb.position;
+                    portalBlue.position = collision.gameObject.GetComponent<TPWall>().GetSpawn().position;
                     portalBlue.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
-                    portalBlue.position += portalBlue.transform.forward * 0.25f;
+                    portalBlue.rotation = portalBlue.rotation;
+                    portalBlue.position = rb.position + portalBlue.transform.forward * 0.1f;
                     blueSlider.value = 0f;
                 }
 

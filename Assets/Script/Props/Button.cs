@@ -28,7 +28,7 @@ public class Button : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //si le joueur ou le companion cube sort du bouton on desactive l objet apres un temps d attente
-        if (other.tag == "Player" || other.tag == "Companion")
+        if (other.tag == "Player" || other.tag == "Companion"&& isTrigger)
         {
             if (cooldown > 0f)
                 Invoke(nameof(Reset), cooldown);

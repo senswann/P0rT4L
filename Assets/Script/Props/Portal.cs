@@ -8,6 +8,9 @@ public class Portal : MonoBehaviour
     // collider du portail
     [SerializeField] BoxCollider portalCollider;
 
+    //camera du joueur
+    [SerializeField] GameObject cameraPlayer;
+
     private void OnTriggerEnter(Collider other)
     {
         //si le joueur ou une boule d energie touche le portail il est teleporter a un autre portail
@@ -18,6 +21,11 @@ public class Portal : MonoBehaviour
             {
                 other.GetComponent<Projectile>().ResetLaunch();
                 other.GetComponent<Projectile>().Launch(portal.up * 2f, 5.5f);
+            }
+            else
+            {
+                cameraPlayer.transform.LookAt(portal.up * 2f);
+                cameraPlayer.transform.rotation = other.transform.rotation;
             }
         }
     }

@@ -23,12 +23,16 @@ public class GravityGun : MonoBehaviour
 
     //rigid body de l'objet grab
     Rigidbody grabbedRB;
+    Collider grabbedCollider;
+    Transform grabbedTransform;
+
     private void FixedUpdate()
     {
         //si l'on a bien le rigid body de l'objet ainis que ca target position, ou lui dit d'aller vers cette position
         if (grabbedRB && objectHolder)
         {
             grabbedRB.MovePosition(Vector3.Lerp(grabbedRB.position, objectHolder.transform.position + cam.transform.forward*dist, Time.fixedDeltaTime * lerpSpeed));
+            grabbedTransform.LookAt(cam.transform);
         }
     }
 
@@ -45,9 +49,11 @@ public class GravityGun : MonoBehaviour
             if (grabbedRB && isGrabbed)
             {
                 isGrabbed = false;
-                grabbedRB.isKinematic = false;
+                Physics.IgnoreCollision(grabbedCollider, GetComponent<Collider>(), false);
+                grabbedRB.useGravity = true;
                 grabbedRB.velocity = -objectHolder.transform.up;
                 grabbedRB = null;
+                grabbedCollider = null;
             }
             //sinon on lance un raycast parcourant une distance defini pour savoir si l'on touche quelque chose
             else
@@ -58,14 +64,20 @@ public class GravityGun : MonoBehaviour
                 {
                     //si il touche le compannion cube on le grab
                     if(hit.collider.gameObject.tag == "Companion")
+                    {
                         grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                        grabbedCollider = hit.collider;
+                        grabbedTransform = hit.transform;
+                    }
                     //sinon si l'on touche un boutton on l'actionne
                     else if (hit.collider.gameObject.tag == "Button")
                         hit.collider.gameObject.GetComponent<ButtonAction>().Action();
                     if (grabbedRB)
                     {
                         isGrabbed = true;
-                        grabbedRB.isKinematic = true;
+                        grabbedRB.useGravity = false;
+                        Physics.IgnoreCollision(grabbedCollider, GetComponent<Collider>(), true);
+                        
                     }
                 }
             }
