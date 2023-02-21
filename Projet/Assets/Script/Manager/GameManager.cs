@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject endScreen;
     bool isPause = false;
+
+    //UI lies au portails
+    [SerializeField] Slider orangeSlider;
+    [SerializeField] Slider blueSlider;
 
     [SerializeField] Move player;
 
@@ -80,6 +85,19 @@ public class GameManager : MonoBehaviour
             player.disableGravityGun = true;
         SceneManager.LoadScene(index);
         Time.timeScale = 1;
+    }
+
+    //fonction pour changer la valeur des slider de portail
+    public void ChangeSlide(bool isBlue,float _value)
+    {
+        if (isBlue)
+        {
+            blueSlider.value = _value;
+        }
+        else
+        {
+            orangeSlider.value = _value;
+        }
     }
 
 }

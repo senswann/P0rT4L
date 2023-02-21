@@ -13,6 +13,9 @@ public class OrbitControl : MonoBehaviour
     [SerializeField] private GameObject player;
     Vector2 rotation = Vector2.zero;
 
+    //variable pour desactiver la camera
+    bool isDisable = false;
+
     //on lock le curseur de la souris pour il ne s affiche plus et corresponde a la camera
     private void Start()
     {
@@ -26,8 +29,13 @@ public class OrbitControl : MonoBehaviour
         var xQuat = Quaternion.AngleAxis(rotation.x * Time.fixedDeltaTime, Vector3.up);
         var yQuat = Quaternion.AngleAxis(rotation.y * Time.fixedDeltaTime, Vector3.left);
 
-        transform.localRotation = xQuat * yQuat;
-        player.transform.localRotation = xQuat;
+
+
+        if (!isDisable)
+        {
+            transform.localRotation = xQuat * yQuat;
+            player.transform.localRotation = xQuat;
+        }
     }
 
     //action appeler quand la souris bouge sur l axe X
@@ -42,4 +50,6 @@ public class OrbitControl : MonoBehaviour
         rotation.y += context.ReadValue<float>() * mouseSensibility;
         rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit*4, yRotationLimit*4);
     }
+
+    public void DisableControl(bool _isDisable) { isDisable = _isDisable; }
 }

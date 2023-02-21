@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
@@ -21,9 +20,8 @@ public class Projectile : MonoBehaviour
     public bool isOrangeSide = false;
     [SerializeField] bool isPortal = false;
 
-    //UI lies au portails
-    [SerializeField] Slider orangeSlider;
-    [SerializeField] Slider blueSlider;
+    //variable du mesh renderer du projectile
+    [SerializeField] Renderer projectileRenderer;
 
     //lors de son activation on recupere son rigid body
     void Awake()
@@ -77,7 +75,8 @@ public class Projectile : MonoBehaviour
                     portalOrange.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
                     portalOrange.rotation = portalOrange.rotation ;
                     portalOrange.position = rb.position+portalOrange.transform.forward * 0.1f;
-                    orangeSlider.value = 0f;
+                    GameManager.instance.ChangeSlide(false, 0f);
+                    //projectileRenderer.material.color = new Color(0.2F, 0.3F, 0.4F);
                 }
                 //sinon si le projectile est un portail et qu il correspond au portail bleu alors on fait apparaitre le portail bleu
                 else
@@ -86,7 +85,8 @@ public class Projectile : MonoBehaviour
                     portalBlue.LookAt(collision.gameObject.GetComponent<TPWall>().GetTarget());
                     portalBlue.rotation = portalBlue.rotation;
                     portalBlue.position = rb.position + portalBlue.transform.forward * 0.1f;
-                    blueSlider.value = 0f;
+                    GameManager.instance.ChangeSlide(true, 0f);
+                    //projectileRenderer.material.color = new Color(0.1F, 0.1F, 0.4F);
                 }
 
                 Destroy(gameObject);
