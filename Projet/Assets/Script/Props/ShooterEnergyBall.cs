@@ -8,21 +8,22 @@ public class ShooterEnergyBall : MonoBehaviour
 
     //variable pour gerer le lancer des boules d energies
     [SerializeField] float launchForce = 300f;
-    [SerializeField] float launchCooldown = 2f;
 
     //lumiere du shooter
     [SerializeField] Light lightObj;
 
     //boolean pour verifier si il tire
     bool isLaunch = true;
+    bool isStop = false;
 
     private void FixedUpdate()
     {
         //si on peux tirer une boule on le fait en attendant la fin du cooldown
-        if (isLaunch)
+        if (isLaunch && !isStop)
         {
             isLaunch = false;
-            Invoke(nameof(Launch), launchCooldown);
+            //Invoke(nameof(Launch), launchCooldown);
+            Launch();
         }
     }
 
@@ -30,11 +31,24 @@ public class ShooterEnergyBall : MonoBehaviour
     void Launch()
     {
         StartCoroutine(Light());
-        isLaunch = true;
         GameObject projectileObject = Instantiate(energyBallInstance, transform.position, Quaternion.identity);
         projectileObject.GetComponent<Projectile>().isParent = false;
         Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.Launch(gameObject.transform.up*2f, launchForce);
+        projectile.Launch(gameObject.transform.up*2f, launchForce,this);
+    }
+
+    //fonction stoppant le tire de projectile
+    public void Stop()
+    {
+        lightObj.color = Color.red;
+        isStop = true;
+        this.enabled = false;
+    }
+
+    //setter du vérificateur pour tirer
+    public void SetIsLaunch(bool _isLaunch)
+    {
+        isLaunch = _isLaunch;
     }
 
     //IEnumerator permettant de gerer l effet de la lumiere

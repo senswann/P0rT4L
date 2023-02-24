@@ -19,6 +19,7 @@ public class RecepteurAction : MonoBehaviour
         //si une boule d energie rentre en contact avec le recepteur il active l objet
         if(collision.gameObject.tag == "Energy")
         {
+            collision.gameObject.GetComponent<Projectile>().GetShooter().Stop();
             lightObj.SetActive(true);
             objAction.Action();
             Destroy(collision.gameObject);

@@ -23,6 +23,9 @@ public class Projectile : MonoBehaviour
     //variable du mesh renderer du projectile
     [SerializeField] Renderer projectileRenderer;
 
+    //variable pour savoir qu elle shooter desactiver
+    ShooterEnergyBall shooter;
+
     //lors de son activation on recupere son rigid body
     void Awake()
     {
@@ -36,8 +39,10 @@ public class Projectile : MonoBehaviour
     }
 
     //fonction permettant le lancer du projectile
-    public void Launch(Vector3 direction, float force)
+    public void Launch(Vector3 direction, float force, ShooterEnergyBall _shooter)
     {
+        if(_shooter!=null)
+            shooter = _shooter;
         rb.AddForce(direction * force, ForceMode.VelocityChange);
     }
 
@@ -60,7 +65,13 @@ public class Projectile : MonoBehaviour
     }
 
     //fonction appeler pour la destruction du projectile
-    private void Erase() { Destroy(gameObject); }
+    private void Erase() {
+        if(shooter!=null)
+            shooter.SetIsLaunch(true);
+        Destroy(gameObject); }
+
+    //getter du shooter
+    public ShooterEnergyBall GetShooter() { return shooter; }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -100,6 +111,7 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 collision.gameObject.GetComponent<Move>().Death();
+                Erase();
                 Debug.Log("Touch");
             }
         }

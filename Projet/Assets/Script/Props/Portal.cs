@@ -4,9 +4,7 @@ public class Portal : MonoBehaviour
 {
     //transform du portail
     [SerializeField] Transform portal;
-
-    // collider du portail
-    [SerializeField] BoxCollider portalCollider;
+    [SerializeField] Transform portalContainer;
 
     //camera du joueur
     [SerializeField] OrbitControl orbitalControl;
@@ -21,14 +19,11 @@ public class Portal : MonoBehaviour
             if (other.tag == "Energy")
             {
                 other.GetComponent<Projectile>().ResetLaunch();
-                other.GetComponent<Projectile>().Launch(portal.up * 2f, 5.5f);
+                other.GetComponent<Projectile>().Launch(portal.up * 2f, 5.5f,other.GetComponent<Projectile>().GetShooter());
             }
             else
             {
-                orbitalControl.DisableControl(true);
-                orbitalControl.transform.localRotation = portal.rotation;
-                orbitalControl.transform.localRotation = portal.rotation;
-                orbitalControl.DisableControl(false);
+                orbitalControl.SetRotation(portalContainer.rotation);
             }
         }
     }

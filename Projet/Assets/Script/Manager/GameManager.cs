@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //si on appuie sur la touche Tab on met en pause le jeu
+    //si on appuie sur la touche Echap on met en pause le jeu
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.started)

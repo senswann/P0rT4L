@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Move : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class Move : MonoBehaviour
     //point de respawn du joueur
     [SerializeField] Transform waypoint;
 
+    bool forceGrounded = false;
     
     //setter du waypoint du joueur
     public void SetWaypoint(Transform _waypoint)
@@ -98,9 +100,20 @@ public class Move : MonoBehaviour
         }
     }
 
+    //permet de savoir si le joueur touche le sol
     bool isGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
+        bool result =true;
+
+        if (!forceGrounded)
+        {
+            result = Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
+        }
+        else
+        {
+            result = true;
+        }
+        return result;
     }
 
     private void FixedUpdate()
@@ -109,7 +122,6 @@ public class Move : MonoBehaviour
         LimitSpeed();
         //mouvement du joueur
         moveDir = new Vector3(camPlayer.transform.forward.x,0f, camPlayer.transform.forward.z) * vecMove.y + new Vector3(camPlayer.transform.right.x, 0f, camPlayer.transform.right.z) * vecMove.x;
-
         //gestion du deplacement du joueur selon si il est en l air ou non
         if (isGrounded())
         {
@@ -117,6 +129,17 @@ public class Move : MonoBehaviour
         }
         else
             rb.AddForce(moveSpeed*airMulti*moveDir.normalized , ForceMode.Force);
+    }
+
+    //corrutine pour forcer le ground quand l'on passe le portail;
+    //fonction forcant le déplacement du joueur
+    public void MoveForward(){ StartCoroutine(ForcedGroundedCheck()); }
+    IEnumerator ForcedGroundedCheck()
+    {
+        forceGrounded = true;
+        yield return new WaitForSeconds(0.1f);
+        forceGrounded = false;
+
     }
 
     //fonction lancant les projectile servant a créer les portails
@@ -128,7 +151,7 @@ public class Move : MonoBehaviour
             Projectile projectile = projectileObject.GetComponent<Projectile>();
             if (isOrangeSide)
                 projectile.isOrangeSide = true;
-            projectile.Launch(camPlayer.transform.forward, launchForce);
+            projectile.Launch(camPlayer.transform.forward, launchForce, null);
         }
     }
 
