@@ -24,7 +24,9 @@ public class DisableChamp : MonoBehaviour
         if (other.tag == "Player")
         {
             doorAnimation.SetTrigger("Open");
-            other.GetComponent<Move>().disableGravityGun = false;
+            other.GetComponent<Move>().disableGravityGun = true;
+            GameManager.instance.ChangeSlide(false, 1f);
+            GameManager.instance.ChangeSlide(true, 1f);
             bluePortal.transform.position = startPositionBlue;
             orangePortal.transform.position = startPositionOrange;
         }

@@ -41,7 +41,15 @@ public class Projectile : MonoBehaviour
     //fonction permettant le lancer du projectile
     public void Launch(Vector3 direction, float force, ShooterEnergyBall _shooter)
     {
-        if(_shooter!=null)
+        if (isPortal)
+        {
+            if (isOrangeSide)
+                projectileRenderer.material.color = Color.red + Color.yellow;
+            else
+                projectileRenderer.material.color = Color.blue;
+        }
+
+        if (_shooter!=null)
             shooter = _shooter;
         rb.AddForce(direction * force, ForceMode.VelocityChange);
     }
@@ -87,7 +95,6 @@ public class Projectile : MonoBehaviour
                     portalOrange.rotation = portalOrange.rotation ;
                     portalOrange.position = rb.position+portalOrange.transform.forward * 0.1f;
                     GameManager.instance.ChangeSlide(false, 0f);
-                    //projectileRenderer.material.color = new Color(0.2F, 0.3F, 0.4F);
                 }
                 //sinon si le projectile est un portail et qu il correspond au portail bleu alors on fait apparaitre le portail bleu
                 else
@@ -97,7 +104,6 @@ public class Projectile : MonoBehaviour
                     portalBlue.rotation = portalBlue.rotation;
                     portalBlue.position = rb.position + portalBlue.transform.forward * 0.1f;
                     GameManager.instance.ChangeSlide(true, 0f);
-                    //projectileRenderer.material.color = new Color(0.1F, 0.1F, 0.4F);
                 }
 
                 Destroy(gameObject);

@@ -11,7 +11,7 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //si le joueur ou une boule d energie touche le portail il est teleporter a un autre portail
-        if(other.tag == "Player" || other.tag == "Energy")
+        if((other.tag == "Player" || other.tag == "Energy") && GameManager.instance.IsOpenPortal())
         {
             
            other.transform.position = portal.position + portal.up;

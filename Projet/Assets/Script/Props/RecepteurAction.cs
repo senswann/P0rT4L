@@ -8,6 +8,9 @@ public class RecepteurAction : MonoBehaviour
     // objet a actionner
     [SerializeField] ObjectAction objAction;
 
+    // objet a actionner
+    [SerializeField] ActivationLight[] activeLight;
+
     //desactivation des lumieres au start
     private void Start()
     {
@@ -23,6 +26,9 @@ public class RecepteurAction : MonoBehaviour
             lightObj.SetActive(true);
             objAction.Action();
             Destroy(collision.gameObject);
+            foreach (var element in activeLight){
+                element.Action();
+            }
         }
     }
 }

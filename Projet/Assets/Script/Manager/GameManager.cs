@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     //foncton activant l ui de fin et mettant en pause le jeu
     public void End()
     {
+        player.disableGravityGun = true;
         Cursor.lockState = CursorLockMode.None;
         fpsCount.SetActive(false);
         endScreen.SetActive(true);
@@ -100,4 +101,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //fonction qui permet de savoir si les 2 portail son activé
+    public bool IsOpenPortal(){ return (blueSlider.value == 0f && orangeSlider.value == 0f) ? true : false; }
 }
