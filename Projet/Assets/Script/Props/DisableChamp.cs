@@ -11,7 +11,9 @@ public class DisableChamp : MonoBehaviour
     Vector3 startPositionOrange;
     Vector3 startPositionBlue;
 
-    //on stock les positions de départ des portails
+    [SerializeField] bool disableGun = true;
+
+    //on stock les positions de dï¿½part des portails
     private void Start()
     {
         startPositionBlue= bluePortal.transform.position;
@@ -24,7 +26,8 @@ public class DisableChamp : MonoBehaviour
         if (other.tag == "Player")
         {
             doorAnimation.SetTrigger("Open");
-            other.GetComponent<Move>().disableGravityGun = true;
+            if(disableGun)
+                other.GetComponent<Move>().disableGravityGun = true;
             GameManager.instance.ChangeSlide(false, 1f);
             GameManager.instance.ChangeSlide(true, 1f);
             bluePortal.transform.position = startPositionBlue;

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider blueSlider;
 
     [SerializeField] Move player;
+    [SerializeField] Transform companionCube;
 
     //variable d instance du GameManager
     public static GameManager instance;
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    //au start on désactive les 2 ui
+    //au start on dï¿½sactive les 2 ui
     private void Start()
     {
         if (pauseScreen != null)
@@ -101,6 +102,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //fonction qui permet de savoir si les 2 portail son activé
+    //fonction pour faire respawn le companion cube
+    public void RespawnCompanion() { companionCube.position = player.transform.position + Vector3.one; }
+
+
+    //fonction qui permet de savoir si les 2 portail son activï¿½
     public bool IsOpenPortal(){ return (blueSlider.value == 0f && orangeSlider.value == 0f) ? true : false; }
 }

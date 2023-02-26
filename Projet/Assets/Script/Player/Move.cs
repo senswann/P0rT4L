@@ -55,6 +55,10 @@ public class Move : MonoBehaviour
         }
     }
 
+    private void Start() {
+        disableGravityGun = false;
+    }
+
     //action appeler quand le joueur veux jump
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -132,7 +136,7 @@ public class Move : MonoBehaviour
     }
 
     //corrutine pour forcer le ground quand l'on passe le portail;
-    //fonction forcant le déplacement du joueur
+    //fonction forcant le dï¿½placement du joueur
     public void MoveForward(){ StartCoroutine(ForcedGroundedCheck()); }
     IEnumerator ForcedGroundedCheck()
     {
@@ -142,7 +146,7 @@ public class Move : MonoBehaviour
 
     }
 
-    //fonction lancant les projectile servant a créer les portails
+    //fonction lancant les projectile servant a crï¿½er les portails
     void Launch(bool isOrangeSide)
     {
         if (!disableGravityGun)
@@ -182,6 +186,7 @@ public class Move : MonoBehaviour
     public void Death()
     {
         transform.position = waypoint.position;
+        GameManager.instance.RespawnCompanion();
     }
     
 }

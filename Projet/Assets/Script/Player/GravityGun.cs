@@ -36,7 +36,7 @@ public class GravityGun : MonoBehaviour
         }
     }
 
-    //Action de grab un objet quand la touche d'action est utilisé
+    //Action de grab un objet quand la touche d'action est utilisï¿½
     public void OnGravityGun(InputAction.CallbackContext context)
     {
         if (!context.performed && context.canceled)
@@ -45,7 +45,7 @@ public class GravityGun : MonoBehaviour
         }
         if (context.performed)
         {
-            //si on a déja un objet grab on le lache
+            //si on a dï¿½ja un objet grab on le lache
             if (grabbedRB && isGrabbed)
             {
                 isGrabbed = false;
